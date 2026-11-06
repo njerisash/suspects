@@ -1,0 +1,56 @@
+DROP TABLE IF EXISTS suspects;
+
+CREATE TABLE suspects(
+suspect_id INT PRIMARY KEY,
+name VARCHAR(30) NOT NULL,
+role VARCHAR(20),
+last_seen_place VARCHAR(20),
+time_seen VARCHAR(5),
+carrying VARCHAR(20),
+shoe_size INT,
+alibi VARCHAR(40),
+status VARCHAR(15) DEFAULT 'Suspect'
+);
+
+--insert into suspects
+INSERT INTO suspects
+(suspect_id,name,role,last_seen_place,time_seen,carrying,shoe_size,alibi)
+VALUES
+(1,'brian otieno','student','cafeteria','06:20','backpack',42,NULL),
+(2,'faith wambui','student','cafeteria','06:35','cooler box',38,'friend vouches for her'),
+(3,'mama pima','cook','cafeteria','06:05','nothing',39,'cooking since 5am'),
+(4,'chege njoroge','cleaner','cafeteria','06:50','cooler box',42,NULL),
+(5,'amina hassan','student','cafeteria','06:40','umbrella',42,NULL),
+(6,'dennis kiprop','visitor','cafeteria','06:15','backpack',42,NULL),
+(7,'lucy achieng','student','cafeteria','06:55','laptop bag',40,NULL),
+(8,'kevin mwangi','student','library','06:30','laptop bag',42,NULL),
+(9,'sarah njeri','lecturer','cafeteria','07:30','cooler box',42,NULL),
+(10,'peter omondi','security','gate','06:10','nothing',44,'on duty at the gate'),
+(11,'grace mutheu','student','hotel','05:45','backpack',41,'roommate confirms'),
+(12,'tom barasa','visitor','cafeteria','05:50','backpack',42,NULL),
+(13,'janet chebet','lecturer','lab','06:25','laptop bag',37,NULL),
+(14,'ibrahim yusuf','student','field','06:45','nothing',43,'fitness tracker log'),
+(15,'rose atieno','cook','cafeteria','06:00','nothing',36,'cooking since 5am');
+
+--select from suspects
+SELECT name FROM suspects;
+--just name and role
+SELECT name,role FROM suspects;
+--who was in cafeteria?
+SELECT*FROM suspects WHERE last_seen_place='cafeteria';
+--students only
+SELECT*FROM suspects WHERE role='student';
+--who has no alibi?
+SELECT*FROM suspects WHERE alibi IS NULL;
+--alibi mentions cooking
+SELECT*FROM suspects WHERE alibi LIKE '%cooking since 5am%';
+--lecturers or security
+SELECT*FROM suspects WHERE role IN ('lecturer','security');
+--ealiest sightings
+SELECT *FROM suspects ORDER BY time_seen ASC LIMIT 3;
+--list esch place once
+SELECT DISTINCT last_seen_place FROM suspects;
+
+
+
+
